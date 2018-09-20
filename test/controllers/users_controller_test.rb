@@ -12,6 +12,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get change_password" do
+    log_in_as @user
+    get change_password_user_path(@user)
+    assert_response :success
+    assert_template "users/change_password"
+  end
+
   test "should redirect edit when not logged in" do
     get edit_user_path(@user)
     assert_not flash.empty?

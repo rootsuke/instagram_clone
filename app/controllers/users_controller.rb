@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
-  before_action :logged_in_user, only: [:edit, :update, :index, :destroy, :following, :followers]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:edit, :update, :index, :destroy, :following, :followers, :change_password]
+  before_action :correct_user, only: [:edit, :update, :change_password]
   before_action :admin_user, only: :destroy
 
   def new
@@ -66,11 +66,16 @@ class UsersController < ApplicationController
     render "show_follow"
   end
 
+  def change_password
+  end
+
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation)
+      params.require(:user).permit(:full_name, :name, :email, :password,
+                                   :password_confirmation, :website,
+                                   :self_introduction, :telephone_number,
+                                   :gender)
     end
 
     def correct_user

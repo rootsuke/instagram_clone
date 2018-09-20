@@ -6,6 +6,11 @@ michael:
   admin: true
   activated: true
   activated_at: <%= Time.zone.now %>
+  full_name: Michael Example
+  website: dummy
+  self_introduction: dummy
+  telephone_number: dummy
+  gender: dummy
 
 archer:
   name: Sterling Archer

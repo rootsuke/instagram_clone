@@ -4,9 +4,13 @@
   <aside class="col-md-4">
     <section class="user-info">
       <h1>
-        <%= gravatar_for @user %>
+        <%= gravatar_for @user, size: 150 %>
         <%= @user.name %>
       </h1>
+      <p><%= @user.full_name %></p>
+      <p><%= @user.self_introduction %></p>
+      <p><%= @user.website %></p>
+      <span class="btn btn-default"> <%= link_to "プロフィールを編集", edit_user_path %> </span>
     </section>
     <section class="stats">
       <%= render "shared/stats" %>

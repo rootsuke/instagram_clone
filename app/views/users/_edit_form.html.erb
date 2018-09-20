@@ -7,14 +7,28 @@
   <%= f.label :name, "ユーザーネーム" %>
   <%= f.text_field :name, class: "form-control" %>
 
+  <%= f.label :website, "ウェブサイト" %>
+  <%= f.text_field :website, class: "form-control" %>
+
+  <%= f.label :self_introduction, "自己紹介" %>
+  <%= f.text_area :self_introduction, class: "form-control" %>
+
+  <p>非公開情報</p>
+
   <%= f.label :email, "メールアドレス"%>
   <%= f.email_field :email, class: "form-control" %>
 
-  <%= f.label :password, "パスワード" %>
+  <%= f.label :telephone_number, "電話番号" %>
+  <%= f.text_field :telephone_number, class: "form-control" %>
+
+  <%= f.label :gender, "性別" %>
+  <%= f.select :gender, [["男性", "male"], ["女性", "female"]] %>
+
+  <!-- <%= f.label :password, "パスワード" %>
   <%= f.password_field :password, class: "form-control" %>
 
   <%= f.label :password_confirmation, "パスワードの確認" %>
-  <%= f.password_field :password_confirmation, class: "form-control" %>
+  <%= f.password_field :password_confirmation, class: "form-control" %> -->
 
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>

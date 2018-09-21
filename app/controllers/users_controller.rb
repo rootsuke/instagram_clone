@@ -35,13 +35,30 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @page_title = "プロフィールの編集"
+    @partial = "edit_form"
   end
 
   def update
+
+    if params[:origin_form] == "change_password"
+      if params[:user][:password].blank?
+        flash.now[:danger] = "パスワードを入力してください"
+        @partial = "change_password_form"
+        render "edit"
+        return
+      end
+    end
+
     if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated"
+      flash[:success] = "変更を保存しました"
       redirect_to @user
     else
+      if params[:origin_form] == "edit"
+        @partial = "edit_form"
+      else
+        @partial = "change_password_form"
+      end
       render "edit"
     end
   end
@@ -67,6 +84,9 @@ class UsersController < ApplicationController
   end
 
   def change_password
+    @page_title = "パスワードの変更"
+    @partial = "change_password_form"
+    render "edit"
   end
 
   private
@@ -86,6 +106,10 @@ class UsersController < ApplicationController
     def admin_user
       redirect_to root_url unless current_user.admin?
     end
+
+    # def origin_form
+    #   params.require(:origin_form)
+    # end
 
 
 end

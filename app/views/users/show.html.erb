@@ -10,7 +10,8 @@
       <p><%= @user.full_name %></p>
       <p><%= @user.self_introduction %></p>
       <p><%= @user.website %></p>
-      <span class="btn btn-default"> <%= link_to "プロフィールを編集", edit_user_path %> </span>
+      <a href="<%= edit_user_path %>" class="btn btn-default">プロフィールを編集する</a>
+      <!-- <span class="btn btn-default"> <%= link_to "プロフィールを編集", edit_user_path %> </span> -->
     </section>
     <section class="stats">
       <%= render "shared/stats" %>

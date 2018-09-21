@@ -70,6 +70,10 @@ p {
   line-height: 1.7em;
 }
 
+a {
+  color: $gray-light;
+}
+
 /* header */
 
 #logo {
@@ -159,7 +163,11 @@ aside {
 }
 
 .gravatar_edit {
+  height: auto;
+  overflow: hidden;
   margin-top: 15px;
+  display: flex;
+  align-items: center;
 }
 
 .stats {

@@ -12,11 +12,17 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get change_password" do
+  test "should get change_password_partial" do
     log_in_as @user
     get change_password_user_path(@user)
     assert_response :success
-    assert_template "users/change_password"
+    assert_select "label[for=user_password]"
+  end
+
+  test "should render edit_partial" do
+    log_in_as @user
+    get edit_user_path(@user)
+    assert_select "label[for=user_name]"
   end
 
   test "should redirect edit when not logged in" do

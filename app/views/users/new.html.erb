@@ -1,15 +1,18 @@
 <% provide(:title, "Sign up") %>
 <% provide(:button_text, "Create my account") %>
 <% provide(:path, signup_path) %>
-<h1>Instagram_cloneを始めましょう</h1>
+<h1>ユーザー登録</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
 
+    <%= link_to("Facebookで登録する", "/auth/facebook") %>
+
     <%= render "form" %>
 
     <div class="agreement">
-      <%= link_to("登録することで、Facebookの利用規約、データに関するポリシー、Cookieポリシーに同意するものとします。", agreement_path) %>
+      <%= link_to("登録することで、Facebookの利用規約、データに関するポリシー、Cookieポリシーに同意するものとします。",
+                   agreement_path) %>
     </div>
 
   </div>

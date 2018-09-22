@@ -28,8 +28,8 @@ Rails.application.routes.draw do
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
 
-  get '/auth/:provider/facebook',    to: 'sessions#facebook_login',       as: :auth_facebook
-  get '/auth/failure',               to: 'users#auth_failure'
+  get '/auth/:provider/callback', to: 'users#facebook_login', as: :auth_callback
+  get '/auth/failure',            to: 'users#auth_failure'
 
 
 end

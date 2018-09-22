@@ -89,6 +89,28 @@ class UsersController < ApplicationController
     render "edit"
   end
 
+  def facebook_login
+
+    facebook_params = request.env['omniauth.auth']
+
+    @user = User.from_omniauth(facebook_params)
+    if @user.save
+      log_in @user
+      @user.activate
+      remember(@user)
+      flash[:success] = "Facebookアカウントでログインしました"
+      redirect_to @user
+    else
+      flash[:danger] = "Facebookアカウントでのログインに失敗しました"
+      redirect_to auth_failure_path
+    end
+
+    def auth_failure
+      redirect_to root_url
+    end
+
+  end
+
   private
 
     def user_params
@@ -106,10 +128,6 @@ class UsersController < ApplicationController
     def admin_user
       redirect_to root_url unless current_user.admin?
     end
-
-    # def origin_form
-    #   params.require(:origin_form)
-    # end
 
 
 end

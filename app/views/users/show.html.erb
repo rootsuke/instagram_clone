@@ -10,7 +10,10 @@
       <p><%= @user.full_name %></p>
       <p><%= @user.self_introduction %></p>
       <p><%= @user.website %></p>
-      <a href="<%= edit_user_path %>" class="btn btn-default">プロフィールを編集する</a>
+
+      <% if current_user?(@user) %>
+        <a href="<%= edit_user_path %>" class="btn btn-default">プロフィールを編集する</a>
+      <% end %>
       <!-- <span class="btn btn-default"> <%= link_to "プロフィールを編集", edit_user_path %> </span> -->
     </section>
     <section class="stats">

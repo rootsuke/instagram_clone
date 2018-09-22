@@ -29,26 +29,6 @@ class User < ApplicationRecord
   # facebookでログインするときはパスを要求しない
   validates :password, presence: false, on: :login_by_facebook
 
-  def from_omniauth(auth)
-    # facebook登録emailでuserを取得する
-    user = User.where(email: auth.info.email).first
-
-    if user.nil?
-      user = User.new
-    end
-
-    user.uid   = auth.uid
-    user.provider = auth.provider
-    user.name  = auth.info.name
-    user.email = auth.info.email
-    # user.icon  = auth.info.image
-    user.oauth_token      = auth.credentials.token
-    user.oauth_expires_at = Time.at(auth.credentials.expires_at)
-
-    user
-
-  end
-
   def remember
     self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))
@@ -96,6 +76,33 @@ class User < ApplicationRecord
   end
 
   class << self
+
+    def from_omniauth(auth)
+      # facebookの登録emailでuserを取得する
+      user = User.where(email: auth.info.email).first
+
+      if user.nil?
+        user = User.new
+      end
+
+      # facebookログインではパスを要求しないため、パスのダミーを生成
+      password_dummy = SecureRandom.hex(8)
+
+      user.password = password_dummy
+      user.password_confirmation = password_dummy
+
+      user.uid   = auth.uid
+      user.provider = auth.provider
+      user.name  = auth.info.name
+      user.email = auth.info.email
+      # user.icon  = auth.info.image
+      user.oauth_token      = auth.credentials.token
+      user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+
+      user
+
+    end
+
     # 渡された文字列のハッシュ値を返す
     def digest(string)
       cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :

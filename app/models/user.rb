@@ -26,6 +26,29 @@ class User < ApplicationRecord
 
   validates :password, presence: true, length: {minimum: 6}, allow_nil: true
 
+  # facebookでログインするときはパスを要求しない
+  validates :password, presence: false, on: :login_by_facebook
+
+  def from_omniauth(auth)
+    # facebook登録emailでuserを取得する
+    user = User.where(email: auth.info.email).first
+
+    if user.nil?
+      user = User.new
+    end
+
+    user.uid   = auth.uid
+    user.provider = auth.provider
+    user.name  = auth.info.name
+    user.email = auth.info.email
+    # user.icon  = auth.info.image
+    user.oauth_token      = auth.credentials.token
+    user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+
+    user
+
+  end
+
   def remember
     self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))

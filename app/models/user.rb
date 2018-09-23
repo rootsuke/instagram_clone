@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 
   has_many :microposts, dependent: :destroy
+
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id",
                                   dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id",
@@ -8,6 +9,10 @@ class User < ApplicationRecord
 
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
+
+  has_many :favorites, foreign_key: "favorite_user_id", dependent: :destroy
+  # user.favorites.map(&:favorite_post)と同じことを、has_many throughが行う
+  has_many :favorite_posts, through: :favorites, source: :favorite_post
 
   attr_accessor :remember_token, :activation_token, :reset_token
 
@@ -73,6 +78,18 @@ class User < ApplicationRecord
 
   def following?(other_user)
     following.include?(other_user)
+  end
+
+  def favorite(post)
+    favorite_posts << post
+  end
+
+  def unfavorite(post)
+    favorites.find_by(favorite_post_id: post.id).destroy
+  end
+
+  def favorite?(post)
+    favorite_posts.include?(post)
   end
 
   class << self

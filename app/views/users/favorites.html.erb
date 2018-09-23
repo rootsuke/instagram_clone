@@ -1,0 +1,15 @@
+<%= provide(:title, "お気に入りリスト") %>
+
+<h1>お気に入り</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+    <ol class="microposts">
+      <%= render @microposts %>
+    </ol>
+
+    <%= will_paginate @microposts %>
+
+  </div>
+</div>

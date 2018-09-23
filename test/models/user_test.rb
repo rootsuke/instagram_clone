@@ -94,6 +94,18 @@ class UserTest < ActiveSupport::TestCase
     assert_not michael.following?(archer)
   end
 
+  test "should favorite and unfavorite a post" do
+    michael = users(:michael)
+    archer  = users(:archer)
+    post = archer.microposts.create(content: "go")
+    assert_not michael.favorite?(post)
+    michael.favorite(post)
+    assert michael.favorite?(post)
+    assert post.favorite_users.include?(michael)
+    michael.unfavorite(post)
+    assert_not michael.favorite?(post)
+  end
+
   test "feed should have the right posts" do
     michael = users(:michael)
     archer  = users(:archer)

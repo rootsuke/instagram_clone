@@ -4,7 +4,7 @@ class MicropostTest < ActiveSupport::TestCase
 
   def setup
     @user = users(:michael)
-    @micropost = @user.microposts.build(content: "matsumu go")
+    @micropost = @user.microposts.build(content: "go")
   end
 
   test "should be valid" do
@@ -30,5 +30,5 @@ class MicropostTest < ActiveSupport::TestCase
     assert_equal microposts(:most_recent), Micropost.first
   end
 
-  
+
 end

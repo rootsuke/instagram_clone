@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
-  before_action :logged_in_user, only: [:edit, :update, :index, :destroy, :following, :followers, :change_password]
+  before_action :logged_in_user, only: [:edit, :update, :index, :destroy,
+                                        :following, :followers, :favorites, :change_password]
   before_action :correct_user, only: [:edit, :update, :change_password]
   before_action :admin_user, only: :destroy
 
@@ -81,6 +82,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
     render "show_follow"
+  end
+
+  def favorites
+    @user = User.find(params[:id])
+    @microposts = @user.favorite_posts.paginate(page: params[:page])
   end
 
   def change_password

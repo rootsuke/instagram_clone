@@ -1,6 +1,10 @@
 class Micropost < ApplicationRecord
   belongs_to :user
 
+  has_many :favorites, foreign_key: "favorite_post_id", dependent: :destroy
+  # post.favorites.map(&:favorite_user)
+  has_many :favorite_users, through: :favorites, source: :favorite_user
+
   default_scope -> {order(created_at: :desc)}
 
   mount_uploader :picture, PictureUploader

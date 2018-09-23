@@ -34,3 +34,8 @@ following = users[2..50]
 followers = users[3..40]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
+
+# ふぁぼ
+user  = User.first
+posts = Micropost.where.not(user_id: user.id).limit(50)
+posts.each { |post| user.favorite(post) }

@@ -1,5 +1,5 @@
 class MicropostsController < ApplicationController
-  before_action :logged_in_user, only: [:create, :destroy]
+  before_action :logged_in_user, only: [:create, :destroy, :favorite]
   before_action :correct_user, only: :destroy
 
   def create
@@ -19,7 +19,6 @@ class MicropostsController < ApplicationController
     redirect_to request.referrer || root_url
     # redirect_back(fallback_location: root_url)
   end
-
 
   private
 

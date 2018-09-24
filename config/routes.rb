@@ -25,8 +25,15 @@ Rails.application.routes.draw do
 
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
-  resources :microposts, only: [:create, :destroy]
+
+  resources :microposts do
+    member do
+      post :favorite
+    end
+  end
+
   resources :relationships, only: [:create, :destroy]
+  resources :favorites, only: [:create, :destroy]
 
   get '/auth/:provider/callback', to: 'users#facebook_login', as: :auth_callback
   get '/auth/failure',            to: 'users#auth_failure'

@@ -1,0 +1,7 @@
+<% @user ||= current_user %>
+
+<% if @user.favorite?(post) %>
+  <%= link_to fa_icon("star 2x yellow"), favorite_path(Favorite.find_by(favorite_post_id: post.id)), method: :delete %>
+<% else %>
+  <%= link_to fa_icon("star 2x light-gray"), favorites_path(params: {post_id: post.id}), method: :post %>
+<% end %>

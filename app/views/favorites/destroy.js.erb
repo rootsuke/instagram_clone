@@ -5,5 +5,8 @@ if ($('#user_id').val() == null || $('#user_id').val() * 1 == <%= current_user.i
   // 自分のページ
   $("#favorites").html('<%= current_user.favorite_posts.count %>')
 } else {
-  ;// 他人のページをレンダーしてるときは何もしない
+  // 他人のページをレンダーしてるときは何もしない
+  ;
 };
+
+$('#micropost-<%= micropost.id %>').children('#favorites-count').html('お気に入り <%= micropost.favorite_users.count %>件')

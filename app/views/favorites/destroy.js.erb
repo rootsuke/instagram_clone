@@ -1,0 +1,9 @@
+<% micropost = @micropost %>
+$("#micropost-<%= micropost.id %>").children("#favorite_btn").html('<%= link_to fa_icon("star 2x light-gray"), favorites_path(params: {post_id: micropost.id}),method: :post, remote: true %>');
+
+if ($('#user_id').val() == null || $('#user_id').val() * 1 == <%= current_user.id %>) {
+  // 自分のページ
+  $("#favorites").html('<%= current_user.favorite_posts.count %>')
+} else {
+  ;// 他人のページをレンダーしてるときは何もしない
+};

@@ -27,6 +27,17 @@ users = User.order(:created_at).take(6)
   users.each {|user| user.microposts.create!(content: content)}
 end
 
+# コメント
+users = User.where('id= ? or id= ? or id= ?', 4, 5, 6)
+post_id = 295
+3.times do
+  content = Faker::Lorem.sentence(3)
+  users.each do |user|
+    user.comments.create!(content: content, micropost_id: post_id)
+  end
+  post_id += 1
+end
+
 # フォロー、フォロワー
 users = User.all
 user  = users.first

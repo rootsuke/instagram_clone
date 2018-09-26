@@ -16,6 +16,7 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
     redirect_to root_url and return unless @user.activated
+    @comment = current_user.comments.build
   end
 
   def new
@@ -87,6 +88,7 @@ class UsersController < ApplicationController
   def favorites
     @user = User.find(params[:id])
     @microposts = @user.favorite_posts.paginate(page: params[:page])
+    @comment = current_user.comments.build
   end
 
   def change_password

@@ -297,7 +297,7 @@ input {
   li {
     overflow: hidden;
     padding: 10px 0;
-    border: 1px solid #e8e8e8;
+    border-top: 1px solid #e8e8e8;
   }
   .profile {
     height: 40px;
@@ -317,7 +317,7 @@ input {
     color: $gray-light;
     display: block;
     margin-right: 10px;
-    float: left;
+    // float: left;
     // margin-left: 60px;
   }
   .gravatar {

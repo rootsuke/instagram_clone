@@ -1,5 +1,6 @@
 class Micropost < ApplicationRecord
   belongs_to :user
+  has_many :comments, dependent: :destroy
 
   has_many :favorites, foreign_key: "favorite_post_id", dependent: :destroy
   # post.favorites.map(&:favorite_user)

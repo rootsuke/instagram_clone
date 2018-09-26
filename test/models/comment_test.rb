@@ -4,7 +4,8 @@ class CommentTest < ActiveSupport::TestCase
 
   def setup
     @user = users(:michael)
-    @comment = @user.comments.build(content: "go")
+    @micropost = microposts(:orange)
+    @comment = @user.comments.build(content: "go", micropost: @micropost)
   end
 
   test "should be valid" do
@@ -24,7 +25,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test "most recent comment should be first" do
-    assert_equal comments(:oldest), Comment.first
+    assert_equal comments(:oldest_comment), Comment.first
   end
 
 

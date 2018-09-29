@@ -313,12 +313,31 @@ input {
   p {
     font-size: 14px;
   }
-  .timestamp {
-    color: $gray-light;
-    display: block;
+
+  .gravatar {
+    float: left;
     margin-right: 10px;
-    // float: left;
-    // margin-left: 60px;
+    // margin-top: 5px;
+  }
+}
+
+.timestamp {
+  color: $gray-light;
+  display: block;
+  margin-right: 10px;
+  // float: left;
+  // margin-left: 60px;
+}
+
+// notifications
+
+.notifications {
+  list-style: none;
+  padding-top: 0;
+  li {
+    overflow: hidden;
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
   }
   .gravatar {
     float: left;

@@ -5,6 +5,8 @@ class FavoritesController < ApplicationController
   def create
     @micropost = Micropost.find(params[:post_id])
     current_user.favorite(@micropost)
+    Notification.create(user_id: @micropost.user_id, notified_by_id: current_user.id,
+                        notification_type: "favorite")
     respond_to do |format|
       format.html {redirect_back(fallback_location: root_path)}
       format.js

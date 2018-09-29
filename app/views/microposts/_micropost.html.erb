@@ -12,9 +12,11 @@
 
   <div id="favorite_btn">
     <% if current_user.favorite?(micropost) %>
-      <%= link_to fa_icon("star 2x yellow"), favorite_path(Favorite.find_by(favorite_post_id: micropost.id)), method: :delete, remote: true %>
+      <%= link_to fa_icon("star 2x yellow"),
+       favorite_path(Favorite.find_by(favorite_post_id: micropost.id)), method: :delete, remote: true %>
     <% else %>
-      <%= link_to fa_icon("star 2x light-gray"), favorites_path(params: {post_id: micropost.id}),method: :post, remote: true %>
+      <%= link_to fa_icon("star 2x light-gray"),
+       favorites_path(params: {post_id: micropost.id}),method: :post, remote: true %>
     <% end %>
   </div>
 

@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
     if @user.save
       @user.send_activation_email
-      flash[:info] = "Please check your email to activate your account."
+      flash[:info] = "送信されたメールからアカウントを有効化してください。"
       redirect_to root_url
     else
       render "new"
@@ -67,7 +67,7 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "User deleted"
+    flash[:success] = "アカウントを削除しました"
     redirect_to users_url
   end
 

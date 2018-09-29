@@ -5,9 +5,22 @@
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Home",   root_path %></li>
-        <li><%= link_to "ヘルプページ",   help_path %></li>
+
         <% if logged_in? %>
+          <% if current_user.has_unread_notification? %>
+            <li>
+              <a href="<%= notifications_path %>">
+                <%= fa_icon("bell 2x yellow") %><%= current_user.notifications.where(read: false).count %>
+              </a>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to fa_icon("bell 2x"), help_path %>
+            </li>
+          <% end %>
+
           <li><%= link_to "ユーザー一覧", users_path %></li>
+
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               アカウント<b class="caret"></b>
@@ -21,6 +34,7 @@
               </li>
             </ul>
           </li>
+
         <% else %>
           <li><%= link_to "ログイン", login_path %></li>
         <% end %>

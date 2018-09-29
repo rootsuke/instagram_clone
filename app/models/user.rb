@@ -15,6 +15,8 @@ class User < ApplicationRecord
   # user.favorites.map(&:favorite_post)と同じことを、has_many throughが行う
   has_many :favorite_posts, through: :favorites, source: :favorite_post
 
+  has_many :notifications, dependent: :destroy
+
   attr_accessor :remember_token, :activation_token, :reset_token
 
   before_save :email_downcase
@@ -48,6 +50,14 @@ class User < ApplicationRecord
 
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+
+  def activate
+    update_columns(activated: true, activated_at: Time.zone.now)
   end
 
   def create_reset_digest
@@ -93,6 +103,10 @@ class User < ApplicationRecord
     favorite_posts.include?(post)
   end
 
+  def has_unread_notification?
+    notifications.where(read: false).any?
+  end
+
   class << self
 
     def from_omniauth(auth)
@@ -132,14 +146,6 @@ class User < ApplicationRecord
     def new_token
       SecureRandom.urlsafe_base64
     end
-  end
-
-  def send_activation_email
-    UserMailer.account_activation(self).deliver_now
-  end
-
-  def activate
-    update_columns(activated: true, activated_at: Time.zone.now)
   end
 
   private

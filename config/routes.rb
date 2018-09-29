@@ -36,9 +36,11 @@ Rails.application.routes.draw do
 
   resources :relationships, only: [:create, :destroy]
   resources :favorites, only: [:create, :destroy]
+  resources :notifications, only: :index
 
   get '/auth/:provider/callback', to: 'users#facebook_login', as: :auth_callback
   get '/auth/failure',            to: 'users#auth_failure'
+
 
 
 end

@@ -9,6 +9,9 @@ class CommentsController < ApplicationController
     if @comment.save
       flash[:success] = "コメントを送信しました"
       redirect_to request.referrer || root_url
+      notify_to_id = @comment.micropost.user_id
+      Notification.create(user_id: notify_to_id, notified_by_id: current_user.id,
+                          notification_type: "comment")
     else
       if @comment.content.blank?
         flash.now[:danger]= "コメントを入力してください"

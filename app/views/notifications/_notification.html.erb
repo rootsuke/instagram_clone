@@ -1,0 +1,26 @@
+<li class="notification">
+  <% user = notification.notified_by %>
+
+  <div>
+    <%= link_to gravatar_for(user, size: 40), user %>
+  </div>
+
+  <div class="notification-message">
+    <%= link_to user.name, user %>さんが
+
+    <% case notification.notification_type %>
+    <% when "favorite" %>
+      <%= "あなたの写真をお気に入り登録しました。" %>
+    <% when "follow" %>
+      <%= "あなたをフォローしました。" %>
+    <% when "comment" %>
+      <%= "あなたの写真にコメントしました。" %>
+    <% end %>
+  </div>
+
+  <div class="timestamp">
+    <%= time_ago_in_words(notification.created_at) %> ago.
+  </div>
+
+
+</li>

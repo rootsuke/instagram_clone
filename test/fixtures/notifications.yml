@@ -1,0 +1,5 @@
+one:
+  user: michael
+  notified_by: archer
+  notification_type: "follow"
+  

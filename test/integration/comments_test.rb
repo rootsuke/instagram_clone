@@ -1,6 +1,6 @@
-require "test_helper"
+require 'test_helper'
 
-class CommentTest < ActionDispatch::IntegrationTest
+class CommentsTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:michael)
     @other_user = users(:archer)

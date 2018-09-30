@@ -103,7 +103,7 @@ class User < ApplicationRecord
     favorite_posts.include?(post)
   end
 
-  def has_unread_notification?
+  def has_unread_notifications?
     notifications.where(read: false).any?
   end
 

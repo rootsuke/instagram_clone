@@ -7,7 +7,7 @@
         <li><%= link_to "Home",   root_path %></li>
 
         <% if logged_in? %>
-          <% if current_user.has_unread_notification? %>
+          <% if current_user.has_unread_notifications? %>
             <li>
               <a href="<%= notifications_path %>">
                 <%= fa_icon("bell 2x yellow") %><%= current_user.notifications.where(read: false).count %>

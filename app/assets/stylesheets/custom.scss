@@ -118,8 +118,11 @@ a {
 }
 
 .fa-star {
-  // float: left;
-  margin-top: 10px
+  margin-top: 10px;
+}
+
+#fa-bell {
+  font-size: 20px;
 }
 
 /* footer */
@@ -287,6 +290,13 @@ input {
     overflow: auto;
     padding: 10px 0;
     border-bottom: 1px solid $gray-lighter;
+  }
+}
+
+// search-form
+.navbar-form {
+  input {
+    margin-bottom: auto;
   }
 }
 

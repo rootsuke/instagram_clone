@@ -1,6 +1,16 @@
 class MicropostsController < ApplicationController
-  before_action :logged_in_user, only: [:create, :destroy, :favorite]
+  before_action :logged_in_user, only: [:index, :create, :destroy, :favorite]
   before_action :correct_user, only: :destroy
+
+  def index
+    @comment = current_user.comments.build
+    if params[:search].blank?
+      flash[:danger] = "検索ワードを入力してください。"
+      redirect_to request.referrer || root_url
+    else
+      @microposts = Micropost.search(params[:search]).paginate(page: params[:page])
+    end
+  end
 
   def create
     @micropost = current_user.microposts.build(micropost_params)
@@ -18,7 +28,6 @@ class MicropostsController < ApplicationController
     @micropost.destroy
     flash[:success] = "Micropost deleted"
     redirect_to request.referrer || root_url
-    # redirect_back(fallback_location: root_url)
   end
 
   private

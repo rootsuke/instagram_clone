@@ -2,22 +2,33 @@
   <div class="container">
     <%= link_to fa_icon("camera-retro 3x white"), root_path %>
     <%= link_to "Instagram_clone", root_path, id: "logo" %>
-    <nav>
+
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home",   root_path %></li>
 
         <% if logged_in? %>
-          <% if current_user.has_unread_notifications? %>
-            <li>
-              <a href="<%= notifications_path %>">
-                <%= fa_icon("bell 2x yellow") %><%= current_user.notifications.where(read: false).count %>
-              </a>
-            </li>
-          <% else %>
-            <li>
-              <%= link_to fa_icon("bell 2x"), help_path %>
-            </li>
-          <% end %>
+
+          <li>
+            <%= form_tag(microposts_path, method: :get, class: "navbar-form") do %>
+              <div class="form-group">
+                <%= text_field_tag :search, '', class: "form-control" %>
+              </div>
+                <%= button_tag "検索", type: "submit", name: nil, class: "btn btn-default" %>
+            <% end %>
+          </li>
+
+          <li>
+            <% if current_user.has_unread_notifications? %>
+                <a href="<%= notifications_path %>">
+                  <i class="fa fa-bell fa-yellow" id="fa-bell"></i>
+                  <%= current_user.notifications.where(read: false).count %>
+                </a>
+            <% else %>
+                <a href="<%= notifications_path %>">
+                  <i class="fa fa-bell" id="fa-bell"></i>
+                </a>
+                <!-- <%= link_to fa_icon("bell"), notifications_path %> -->
+            <% end %>
+          </li>
 
           <li><%= link_to "ユーザー一覧", users_path %></li>
 
@@ -39,6 +50,6 @@
           <li><%= link_to "ログイン", login_path %></li>
         <% end %>
       </ul>
-    </nav>
+
   </div>
 </header>

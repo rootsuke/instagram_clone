@@ -1,0 +1,11 @@
+<%= provide(:title, "検索結果") %>
+
+<h1>検索結果（<%= @microposts.count %>）</h1>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <ol class="microposts">
+      <%= render @microposts %>
+    </ol>
+  </div>
+</div>

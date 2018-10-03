@@ -1,8 +1,11 @@
 class PictureUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
+  # require 'RMagick'
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
-  process resize_to_limit: [400, 400]
+  process :crop
+  process resize_to_limit: [300, 300]
+  # process :create_square
 
   # Choose what kind of storage to use for this uploader:
   if Rails.env.production?
@@ -48,4 +51,39 @@ class PictureUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+
+  private
+
+    # def crop
+    #   manipulate! do |img|
+    #     length = img[:width] > img[:height] ? img[:height] : img[:width]
+    #     side = length/2
+    #     img.crop "#{length}x#{length}+100+0"
+    #     # img.resize "#{length}x#{length}"
+    #     img
+    #   end
+    # end
+    #
+    def crop
+      manipulate! do |image|
+        w = image[:width]
+        h = image[:height]
+        if w < h
+          remove = ((h - w)/2).round
+          image.shave("0x#{remove}")
+        elsif w > h
+          remove = ((w - h)/2).round
+          image.shave("#{remove}x0")
+        end
+
+      end
+    end
+
+    # def create_square
+    #   manipulate! do |img|
+    #     narrow = img.columns > img.rows ? img.rows : img.columns
+    #     img.crop(Magick::CenterGravity, narrow, narrow).resize(size, size)
+    #   end
+    # end
+
 end

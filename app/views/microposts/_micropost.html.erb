@@ -1,4 +1,5 @@
 <li id="micropost-<%= micropost.id %>">
+  <a href="<%= micropost_path(micropost) %>">micropost</a>
   <div class="profile">
     <%= link_to gravatar_for(micropost.user, size: 40), micropost.user %>
     <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
@@ -50,5 +51,4 @@
       <%= f.submit "送信", class: "btn btn-primary" %>
     <% end %>
   </div>
-
 </li>

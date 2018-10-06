@@ -1,3 +1,12 @@
-<footer class="footer fixed-bottom">
-  <%= link_to "+", new_micropost_path%>
+<footer class="navbar navbar-default navbar-fixed-bottom">
+  <div class="container">
+    <ul class="nav navbar-nav">
+      <li>
+        <%= link_to "HOME", root_path %>
+      </li>
+      <li>
+        <%= link_to "+", new_micropost_path %>
+      </li>
+    </ul>
+  </div>
 </footer>

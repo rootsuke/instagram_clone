@@ -1,0 +1,13 @@
+<%= provide(:title, "Micropost") %>
+
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <ul class="microposts">
+         <%= render "micropost", micropost: @micropost %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

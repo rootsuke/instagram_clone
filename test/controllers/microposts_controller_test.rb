@@ -29,11 +29,6 @@ class MicropostsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
   end
 
-  test "should render show page" do
-    log_in_as(users(:michael))
-    get micropost_path(@micropost)
-    assert_template "microposts/show"
-    assert_match @micropost.content, response.body
-  end
+
 
 end

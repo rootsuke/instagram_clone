@@ -31,11 +31,9 @@
   <%= f.label :gender, "性別" %>
   <%= f.select :gender, [["男性", "male"], ["女性", "female"]] %>
 
-  <!-- <%= f.label :password, "パスワード" %>
-  <%= f.password_field :password, class: "form-control" %>
-
-  <%= f.label :password_confirmation, "パスワードの確認" %>
-  <%= f.password_field :password_confirmation, class: "form-control" %> -->
-
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>
+
+<%= link_to("アカウントを削除する", @user, method: :delete,
+    data: {confirm: "アカウントを削除してよろしいですか？"},
+    class: "btn btn-danger") %>

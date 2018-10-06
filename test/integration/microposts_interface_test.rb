@@ -10,14 +10,13 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     log_in_as @user
     get root_path
     assert_select "div.pagination"
-    assert_select "input[type=file]"
     # 無効な送信
     assert_no_difference "Micropost.count" do
       post microposts_path, params: {micropost: {content: ""}}
     end
     assert_select "div#error_explanation"
     # 有効な送信
-    content = "matsumu go"
+    content = "rails"
     picture = fixture_file_upload("test/fixtures/rails.png", "image/png")
     assert_difference "Micropost.count", 1 do
       post microposts_path, params: {micropost: {content: content, picture: picture}}
@@ -35,19 +34,6 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     # 違うユーザーのページにdeleteリンクがないことを確認
     get user_path(users(:archer))
     assert_select "a", text: "delete", count: 0
-  end
-
-  test "micropost sidebar count" do
-    log_in_as(@user)
-    get root_path
-    assert_match "#{@user.microposts.count} microposts", response.body
-    @other_user = users(:malory)
-    log_in_as(@other_user)
-    get root_path
-    assert_match "0 micropost", response.body
-    post microposts_path, params: {micropost: {content: "matsumu go"}}
-    get root_path
-    assert_match "1 micropost", response.body
   end
 
 end

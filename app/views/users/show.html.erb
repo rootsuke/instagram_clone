@@ -3,27 +3,40 @@
 
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
-    <section class="user-info">
-      <h1>
+    <div class="row">
+      <div class="col-xs-4">
         <%= gravatar_for @user, size: 150 %>
-        <%= @user.name %>
-      </h1>
-      <p><%= @user.full_name %></p>
-      <p><%= @user.self_introduction %></p>
-      <p><%= @user.website %></p>
+      </div>
 
-      <% if current_user?(@user) %>
-        <a href="<%= edit_user_path %>" class="btn btn-default">プロフィールを編集する</a>
-      <% end %>
+      <div class="col-xs-8">
 
-    </section>
-    <section class="stats">
-      <%= render "shared/stats" %>
-    </section>
+        <section class="user-info">
+            <h3>
+              <%= @user.name %>
+            </h3>
+            <% if current_user?(@user) %>
+              <a href="<%= edit_user_path %>" class="btn btn-default">プロフィールを編集する</a>
+              <%= link_to "パスワードの変更", change_password_user_path(current_user), class: "btn btn-default" %>
+            <% else %>
+              <%= render "follow_form" if logged_in? %>
+            <% end %>
+
+          <div class="self-itroduction">
+            <p><%= @user.full_name %></p>
+            <p><%= @user.self_introduction %></p>
+            <p><%= @user.website %></p>
+          </div>
 
 
 
-    <%= render "follow_form" if logged_in? %>
+        </section>
+        <section class="stats">
+          <%= render "shared/stats" %>
+        </section>
+
+      </div>
+    </div>
+
     <!-- <% if @user.microposts.any? %>
     <h3>Microposts (<%= @user.microposts.count %>)</h3>
     <ol class="microposts">
@@ -38,7 +51,9 @@
           <% if micropost.picture? %>
           <div class="col-xs-4">
             <div>
-              <%= link_to image_tag(micropost.picture.url, class: "thumnail"), micropost_path(micropost) %>
+              <div id="user-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+              <%= link_to image_tag(micropost.picture.url, class: "thumnail"), micropost_path(micropost), remote: true %>
             </div>
             <div>
               <%= micropost.content %>

@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update, :index, :destroy,
                                         :following, :followers, :favorites, :change_password]
   before_action :correct_user, only: [:edit, :update, :change_password]
-  before_action :admin_user, only: :destroy
+  before_action :correct_user_or_admin_user, only: :destroy
 
   def new
   end
@@ -133,8 +133,11 @@ class UsersController < ApplicationController
       redirect_to(root_url) unless current_user?(@user)
     end
 
-    def admin_user
-      redirect_to root_url unless current_user.admin?
+    def correct_user_or_admin_user
+      @user = User.find(params[:id])
+      if !current_user.admin? && !current_user?(@user)
+        redirect_to root_url
+      end
     end
 
 

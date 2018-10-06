@@ -2,11 +2,16 @@
   <div class="container">
     <ul class="nav navbar-nav">
       <li>
-        <%= link_to "HOME", root_path %>
+        <%= link_to fa_icon("home 2x"), root_path %>
       </li>
-      <li>
-        <%= link_to "+", new_micropost_path %>
+      <% if logged_in? %>
+        <li>
+          <%= link_to fa_icon("plus-square 2x"), new_micropost_path %>
+        </li>
+        <li>
+          <%= link_to fa_icon("user 2x"), user_path(current_user) %>
       </li>
+      <% end %>
     </ul>
   </div>
 </footer>

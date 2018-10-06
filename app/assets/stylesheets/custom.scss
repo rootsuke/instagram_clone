@@ -68,8 +68,8 @@ h2 {
 }
 
 p {
-  font-size: 1.1em;
-  line-height: 1.7em;
+  font-size: 1.4em;
+  line-height: 2em;
 }
 
 a {
@@ -118,10 +118,6 @@ a {
   }
 }
 
-.fa-star {
-  margin-top: 10px;
-}
-
 #fa-bell {
   font-size: 20px;
 }
@@ -133,24 +129,21 @@ footer {
   padding-top: 5px;
   border-top: 1px solid $gray-medium-light;
   color: $gray-light;
-
   a {
     color: $gray;
+    padding: 5px;
     &:hover {
       color: $gray-darker;
     }
   }
-
-  .small {
-    float: left;
-  }
-
   ul {
-    float: right;
+    width: 100%;
     list-style: none;
-
+    display: flex;
+    justify-content: space-between;
     li {
       float: left;
+      margin-right: 60px;
       padding-left: 15px;
     }
   }
@@ -196,7 +189,6 @@ aside {
 
 
 .gravatar {
-  float: left;
   margin-right: 10px;
 }
 
@@ -208,14 +200,18 @@ aside {
   align-items: center;
 }
 
+// ユーザー個別ページ
+
 .stats {
+  width: 100%;
+  display: flex;
   overflow: auto;
   margin-top: 0;
+  margin-bottom: 15px;
   padding-top: 0;
-  div, a {
-    float: left;
+  .stat {
+    width: 25%;
     padding: 0 10px;
-    border-left: 1px solid $gray-lighter;
     color: gray;
     &:first-child {
       padding-left: 0;
@@ -226,7 +222,6 @@ aside {
     }
     &:hover {
       text-decoration: none;
-      color: blue;
     }
   }
   strong {
@@ -298,7 +293,7 @@ input {
   }
 }
 
-// ユーザー個別ページ
+// ユーザーindexページ
 
 .users {
   list-style: none;
@@ -327,18 +322,19 @@ input {
     border-top: 1px solid #e8e8e8;
   }
   .profile {
-    height: 40px;
+    height: 50px;
   }
   .user {
     margin-top: 5em;
     padding-top: 0;
   }
-  img {
+  .picture {
     display: block;
+    width: 100%;
     // padding: 5px 0;
   }
   p {
-    font-size: 14px;
+    font-size: 18px;
   }
 
   .gravatar {
@@ -351,13 +347,18 @@ input {
   color: $gray-light;
   display: block;
   margin-right: 10px;
-  // float: left;
-  // margin-left: 60px;
 }
-
-.thumnail {
+.thumnails {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e8e8e8;
+  .col-xs-4 {
+    padding: 10px;
+  }
+  .thumnail {
   width: 100%;
   height: auto;
+  }
 }
 
 // notifications

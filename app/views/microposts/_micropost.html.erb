@@ -1,16 +1,15 @@
 <li id="micropost-<%= micropost.id %>">
-  <a href="<%= micropost_path(micropost) %>">micropost</a>
   <div class="profile">
-    <%= link_to gravatar_for(micropost.user, size: 40), micropost.user %>
+    <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
     <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
   </div>
-  <div class="micropost">
-    <%= micropost.content %>
+
+  <div>
+    <%= image_tag(micropost.picture.url, class: "picture") if micropost.picture? %>
   </div>
   <div>
-    <%= image_tag micropost.picture.url if micropost.picture? %>
+    <p><%= micropost.content %></p>
   </div>
-
   <div id="favorite_btn">
     <% if current_user.favorite?(micropost) %>
       <%= link_to fa_icon("star 2x yellow"),

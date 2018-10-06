@@ -15,6 +15,10 @@ class MicropostsController < ApplicationController
   def show
     @micropost = Micropost.find(params[:id])
     @comment = current_user.comments.build
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def new
@@ -23,7 +27,7 @@ class MicropostsController < ApplicationController
 
   def create
     @micropost = current_user.microposts.build(micropost_params)
-    
+
     if @micropost.save
       flash[:success] = "Micropost created!"
       redirect_to root_url

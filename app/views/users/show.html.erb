@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
-    <div class="row">
+    <div class="row user-profile">
       <div class="col-xs-4">
         <%= gravatar_for @user, size: 150 %>
       </div>
@@ -14,8 +14,11 @@
             <h3>
               <%= @user.name %>
             </h3>
+            <section>
+              <%= render "shared/stats" %>
+            </section>
             <% if current_user?(@user) %>
-              <a href="<%= edit_user_path %>" class="btn btn-default">プロフィールを編集する</a>
+              <a href="<%= edit_user_path %>" class="btn btn-default">プロフィールを編集</a>
               <%= link_to "パスワードの変更", change_password_user_path(current_user), class: "btn btn-default" %>
             <% else %>
               <%= render "follow_form" if logged_in? %>
@@ -26,37 +29,19 @@
             <p><%= @user.self_introduction %></p>
             <p><%= @user.website %></p>
           </div>
-
-
-
         </section>
-        <section class="stats">
-          <%= render "shared/stats" %>
-        </section>
-
       </div>
     </div>
 
-    <!-- <% if @user.microposts.any? %>
-    <h3>Microposts (<%= @user.microposts.count %>)</h3>
-    <ol class="microposts">
-      <%= render @microposts %>
-    </ol>
-    <%= will_paginate @microposts %>
-    <% end %> -->
-
-    <div class="row">
+    <div class="row thumnails">
       <% if @user.microposts.any? %>
         <% @microposts.each do |micropost| %>
           <% if micropost.picture? %>
           <div class="col-xs-4">
             <div>
               <div id="user-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
-
-              <%= link_to image_tag(micropost.picture.url, class: "thumnail"), micropost_path(micropost), remote: true %>
-            </div>
-            <div>
-              <%= micropost.content %>
+              <%= link_to image_tag(micropost.picture.url, class: "thumnail"),
+                  micropost_path(micropost), remote: true %>
             </div>
           </div>
           <% end %>

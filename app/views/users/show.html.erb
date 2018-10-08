@@ -33,22 +33,54 @@
       </div>
     </div>
 
-    <div class="row thumnails">
-      <% if @user.microposts.any? %>
-        <% @microposts.each do |micropost| %>
-          <% if micropost.picture? %>
-          <div class="col-xs-4">
-            <div>
-              <div id="user-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
-              <%= link_to image_tag(micropost.picture.url, class: "thumnail"),
-                  micropost_path(micropost), remote: true %>
+    <!-- tab_menu -->
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a href="#thumnails_tab" data-toggle="tab" class="nav-link active">
+          <%= "写真#{@user.microposts.where.not(picture: nil).count}件" %></a>
+      </li>
+      <li class="nav-item">
+        <a href="#favorites_tab" data-toggle="tab" class="nav-link">
+          <%= "#{@user.favorites.count}お気に入り" %></a>
+      </li>
+    </ul>
+
+    <!-- tab_contents -->
+
+    <div class="tab-content">
+
+      <div class="row tab-pane active" id="thumnails_tab">
+        <% if @user.microposts.any? %>
+          <% @microposts.each do |micropost| %>
+            <% if micropost.picture? %>
+            <div class="col-xs-4">
+              <div>
+                <div id="user-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+                <%= link_to image_tag(micropost.picture.url, class: "thumnail"),
+                    micropost_path(micropost), remote: true %>
+              </div>
             </div>
-          </div>
+            <% end %>
           <% end %>
         <% end %>
-      <% end %>
+      </div>
+
+      <div class="row tab-pane" id="favorites_tab">
+        <div class="col-md-8 col-md-offset-2">
+
+          <% @favorites.each do |favorite_post| %>
+            <ol class="microposts">
+              <%= render "microposts/micropost", micropost:favorite_post %>
+            </ol>
+          <% end %>
+
+          <%= will_paginate @favorites %>
+
+        </div>
+      </div>
+
     </div>
 
-  </div>
 
+  </div>
 </div>

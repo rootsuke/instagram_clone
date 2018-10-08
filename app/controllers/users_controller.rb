@@ -14,7 +14,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
+    @microposts = @user.microposts.all
+    @favorites = @user.favorite_posts.paginate(page: params[:page])
     redirect_to root_url and return unless @user.activated
     @comment = current_user.comments.build
   end
@@ -68,7 +69,7 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "アカウントを削除しました"
-    redirect_to users_url
+    redirect_to root_url
   end
 
   def following

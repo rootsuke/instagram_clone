@@ -315,6 +315,7 @@ input {
 // microposts
 .microposts {
   list-style: none;
+  margin-top: 50px;
   padding: 0;
   li {
     overflow: hidden;
@@ -331,7 +332,7 @@ input {
   .picture {
     display: block;
     width: 100%;
-    // padding: 5px 0;
+    padding: 5px 0;
   }
   p {
     font-size: 18px;
@@ -348,10 +349,8 @@ input {
   display: block;
   margin-right: 10px;
 }
-.thumnails {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #e8e8e8;
+#thumnails_tab {
+  margin: 15px 0;
   .col-xs-4 {
     padding: 10px;
   }

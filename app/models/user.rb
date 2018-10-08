@@ -117,9 +117,8 @@ class User < ApplicationRecord
         user = User.new
       end
 
-      # facebookログインではパスを要求しないため、パスのダミーを生成
+      # facebookログインではパスを要求しないため、パスワードのダミーを生成
       password_dummy = SecureRandom.hex(8)
-
       user.password = password_dummy
       user.password_confirmation = password_dummy
 
@@ -127,7 +126,6 @@ class User < ApplicationRecord
       user.provider = auth.provider
       user.name  = auth.info.name
       user.email = auth.info.email
-      # user.icon  = auth.info.image
       user.oauth_token      = auth.credentials.token
       user.oauth_expires_at = Time.at(auth.credentials.expires_at)
 

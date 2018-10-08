@@ -16,6 +16,8 @@ class User < ApplicationRecord
   has_many :favorite_posts, through: :favorites, source: :favorite_post
 
   has_many :notifications, dependent: :destroy
+  has_many :notified_to, class_name: "Notification", foreign_key: "notified_by_id",
+                         dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token
 

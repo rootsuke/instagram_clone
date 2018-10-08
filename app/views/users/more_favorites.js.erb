@@ -1,0 +1,4 @@
+$('#microposts').append("<% @favorites.each do |favorite_post| %>");
+$('#microposts').append('<%= j(render "microposts/micropost", micropost:favorite_post) %>');
+$('#microposts').append("<% end %>");
+$('#more_favorites_link').replaceWith('<%= j(render "more_favorites_link") %>');

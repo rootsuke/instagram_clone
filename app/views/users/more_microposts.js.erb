@@ -1,0 +1,6 @@
+$('#thumnails').append("<% if @microposts.any? %>");
+$('#thumnails').append("<% @microposts.each do |micropost| %>");
+$('#thumnails').append('<div class="col-xs-4"> <%= j(link_to image_tag(micropost.picture.url, class: "thumnail"), micropost_path(micropost), remote: true) %>');
+$('#thumnails').append("<% end %>");
+$('#thumnails').append("<% end %>");
+$('#more_microposts_link').replaceWith('<%= j(render "more_microposts_link") %>');

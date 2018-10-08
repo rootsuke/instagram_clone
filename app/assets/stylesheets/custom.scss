@@ -68,8 +68,8 @@ h2 {
 }
 
 p {
-  font-size: 1.4em;
-  line-height: 2em;
+  font-size: 1.2em;
+  line-height: 1.7em;
 }
 
 a {
@@ -183,8 +183,11 @@ aside {
   }
 }
 
-.self-itroduction p {
-  margin: auto;
+.self-itroduction {
+  margin-bottom: 20px;
+  p {
+    margin: auto;
+  }
 }
 
 
@@ -257,6 +260,8 @@ input {
   height: auto !important;
 }
 
+// errrors
+
 #error_explanation {
   color: red;
   ul {
@@ -271,6 +276,8 @@ input {
     color: $state-danger-text;
   }
 }
+
+// remember_me
 
 .checkbox {
   margin-top: -10px;
@@ -291,6 +298,11 @@ input {
   .btn-danger {
     margin-top: 10px;
   }
+}
+
+// micropost-form
+.micropost-form {
+  margin-top: 50px;
 }
 
 // ユーザーindexページ
@@ -349,6 +361,8 @@ input {
   display: block;
   margin-right: 10px;
 }
+
+// 写真一覧
 #thumnails_tab {
   margin: 15px 0;
   .col-xs-4 {
@@ -358,6 +372,12 @@ input {
   width: 100%;
   height: auto;
   }
+}
+
+// もっと見るリンク
+#more_favorites_link, #more_microposts_link {
+  display: block;
+  text-align: center;
 }
 
 // notifications

@@ -1,0 +1,5 @@
+<% if @favorites.next_page %>
+  <%= link_to "もっと見る",
+      more_favorites_user_path(@user, param_name: "favorites_page", favorites_page: @favorites.next_page),
+      remote: true, onclick: "loading_favorites();", id: "more_favorites_link" %>
+<% end %>

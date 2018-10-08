@@ -1,0 +1,5 @@
+<% if @microposts.next_page %>
+  <%= link_to "写真もっと見る",
+      more_microposts_user_path(@user, param_name: "microposts_page", microposts_page: @microposts.next_page),
+      remote: true, onclick: "loading_microposts();", id: "more_microposts_link" %>
+<% end %>

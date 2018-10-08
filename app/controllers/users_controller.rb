@@ -14,9 +14,23 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
-    @microposts = @user.microposts.all
-    @favorites = @user.favorite_posts.paginate(page: params[:page])
+    @microposts = @user.microposts.where.not(picture: nil).paginate(page: params[:microposts_page], per_page: 6)
+    @favorites = @user.favorite_posts.paginate(page: params[:favorites_page], per_page: 20)
     redirect_to root_url and return unless @user.activated
+    @comment = current_user.comments.build
+  end
+
+  def more_microposts
+    @user = User.find_by(id: params[:id])
+    @microposts = @user.microposts.where.not(picture: nil).paginate(page: params[:microposts_page], per_page: 6)
+    @favorites = @user.favorite_posts.paginate(page: params[:favorites_page], per_page: 20)
+    @comment = current_user.comments.build
+  end
+
+  def more_favorites
+    @user = User.find_by(id: params[:id])
+    @microposts = @user.microposts.where.not(picture: nil).paginate(page: params[:microposts_page], per_page: 6)
+    @favorites = @user.favorite_posts.paginate(page: params[:favorites_page], per_page: 20)
     @comment = current_user.comments.build
   end
 

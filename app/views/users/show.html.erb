@@ -3,13 +3,13 @@
 
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
+
     <div class="row user-profile">
       <div class="col-xs-4">
         <%= gravatar_for @user, size: 150 %>
       </div>
 
       <div class="col-xs-8">
-
         <section class="user-info">
             <h3>
               <%= @user.name %>
@@ -23,7 +23,6 @@
             <% else %>
               <%= render "follow_form" if logged_in? %>
             <% end %>
-
           <div class="self-itroduction">
             <p><%= @user.full_name %></p>
             <p><%= @user.self_introduction %></p>
@@ -35,8 +34,8 @@
 
     <!-- tab_menu -->
     <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a href="#thumnails_tab" data-toggle="tab" class="nav-link active">
+      <li class="nav-item active">
+        <a href="#thumnails_tab" data-toggle="tab" class="nav-link">
           <%= "写真#{@user.microposts.where.not(picture: nil).count}件" %></a>
       </li>
       <li class="nav-item">
@@ -46,41 +45,48 @@
     </ul>
 
     <!-- tab_contents -->
-
     <div class="tab-content">
 
       <div class="row tab-pane active" id="thumnails_tab">
-        <% if @user.microposts.any? %>
-          <% @microposts.each do |micropost| %>
-            <% if micropost.picture? %>
-            <div class="col-xs-4">
-              <div>
-                <div id="user-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+        <div id="thumnails">
+          <% if @microposts.any? %>
+          <div id="user-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+            <% @microposts.each do |micropost| %>
+              <div class="col-xs-4">
+
                 <%= link_to image_tag(micropost.picture.url, class: "thumnail"),
                     micropost_path(micropost), remote: true %>
               </div>
-            </div>
             <% end %>
           <% end %>
-        <% end %>
+        </div>
+        <%= render "more_microposts_link" %>
       </div>
 
       <div class="row tab-pane" id="favorites_tab">
         <div class="col-md-8 col-md-offset-2">
-
-          <% @favorites.each do |favorite_post| %>
-            <ol class="microposts">
-              <%= render "microposts/micropost", micropost:favorite_post %>
-            </ol>
-          <% end %>
-
-          <%= will_paginate @favorites %>
-
+          <ol class="microposts" id="microposts">
+            <% @favorites.each do |favorite_post| %>
+              <%= render "microposts/micropost", micropost: favorite_post %>
+            <% end %>
+          </ol>
+          <%= render "more_favorites_link" %>
         </div>
       </div>
 
     </div>
 
-
   </div>
 </div>
+
+<script type="text/javascript">
+  function loading_favorites(){
+    $("#more_favorites_link").replaceWith('<span id="more_favorites_link">Loading...</span>');
+  };
+</script>
+
+<script type="text/javascript">
+  function loading_microposts(){
+    $("#more_microposts_link").replaceWith('<span id="more_microposts_link">Loading...</span>');
+  };
+</script>

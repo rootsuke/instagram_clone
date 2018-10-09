@@ -9,7 +9,6 @@ class CommentsTest < ActionDispatch::IntegrationTest
   end
 
   test "should post comment and send notification" do
-    @user.follow(@other_user)
     assert_no_difference "@user.comments.count" do
       assert_no_difference "@other_user.notifications.count" do
         post comments_path, params: {post_id: @micropost.id, comment: {content: " "}}
@@ -23,5 +22,8 @@ class CommentsTest < ActionDispatch::IntegrationTest
     end
     follow_redirect!
     assert_match content, response.body
+    log_in_as @other_user
+    get notifications_path
+    assert_select "a[href=?]", micropost_path(@micropost)
   end
 end

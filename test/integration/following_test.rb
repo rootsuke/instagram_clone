@@ -32,6 +32,9 @@ class FollowingTest < ActionDispatch::IntegrationTest
         post relationships_path, params: {followed_id: @other_user.id}
       end
     end
+    log_in_as @other_user
+    get notifications_path
+    assert_select "a[href=?]", user_path(@user)
   end
 
   test "should follow a user with Ajax" do
@@ -40,6 +43,9 @@ class FollowingTest < ActionDispatch::IntegrationTest
         post relationships_path, xhr: true, params: {followed_id: @other_user.id}
       end
     end
+    log_in_as @other_user
+    get notifications_path
+    assert_select "a[href=?]", user_path(@user)
   end
 
   test "should unfollow a user the standard way" do

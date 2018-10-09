@@ -21,6 +21,9 @@ class FavoriteTest < ActionDispatch::IntegrationTest
         post favorites_path(params: {post_id: @micropost.id})
       end
     end
+    log_in_as @other_user
+    get notifications_path
+    assert_select "a[href=?]", micropost_path(@micropost)
   end
 
   test "should unfavorite a micropost" do
@@ -37,6 +40,9 @@ class FavoriteTest < ActionDispatch::IntegrationTest
         post favorites_path(params: {post_id: @micropost.id}, xhr: true)
       end
     end
+    log_in_as @other_user
+    get notifications_path
+    assert_select "a[href=?]", micropost_path(@micropost)
   end
 
   test "should unfavorite a micropost with Ajax" do

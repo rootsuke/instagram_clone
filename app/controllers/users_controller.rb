@@ -114,7 +114,7 @@ class UsersController < ApplicationController
 
   def facebook_login
 
-    facebook_params = request.env['omniauth.auth']
+    facebook_params = request.env["omniauth.auth"]
 
     @user = User.from_omniauth(facebook_params)
     if @user.save
@@ -126,10 +126,6 @@ class UsersController < ApplicationController
     else
       flash[:danger] = "Facebookアカウントでのログインに失敗しました"
       redirect_to auth_failure_path
-    end
-
-    def auth_failure
-      redirect_to root_url
     end
 
   end

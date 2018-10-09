@@ -117,7 +117,7 @@ class User < ApplicationRecord
         user = User.new
       end
 
-      # facebookログインではパスを要求しないため、パスワードのダミーを生成
+      # facebookログインではパスワードを取得できないため、ダミーを生成
       password_dummy = SecureRandom.hex(8)
       user.password = password_dummy
       user.password_confirmation = password_dummy

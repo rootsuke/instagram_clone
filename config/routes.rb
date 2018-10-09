@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'password_resets/new'
-
-  get 'password_resets/edit'
-
   get 'sessions/new'
 
   root "static_pages#home"
@@ -23,6 +19,8 @@ Rails.application.routes.draw do
   post "login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 
+  get 'password_resets/new'
+  get 'password_resets/edit'
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
 
@@ -33,14 +31,10 @@ Rails.application.routes.draw do
   end
 
   resources :comments, only: :create
-
   resources :relationships, only: [:create, :destroy]
   resources :favorites, only: [:create, :destroy]
   resources :notifications, only: :index
 
   get '/auth/:provider/callback', to: 'users#facebook_login', as: :auth_callback
-  get '/auth/failure',            to: 'users#auth_failure'
-
-
 
 end

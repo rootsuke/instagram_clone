@@ -8,9 +8,9 @@ class CommentsController < ApplicationController
 
     if @comment.save
       flash[:success] = "コメントを送信しました"
-      notify_to_id = @comment.micropost.user_id
-      Notification.create(user_id: notify_to_id, notified_by_id: current_user.id,
-                          notification_type: "comment")
+      @user = @comment.micropost.user
+      @user.notifications.create(notified_by_id: current_user.id,
+                          micropost_id: params[:post_id], notification_type: "comment")
       redirect_to request.referrer || root_url
     else
       if @comment.content.blank?
@@ -23,9 +23,6 @@ class CommentsController < ApplicationController
       render "static_pages/home"
     end
 
-  end
-
-  def destroy
   end
 
   private

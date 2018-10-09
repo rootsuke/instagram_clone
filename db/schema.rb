@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180927165503) do
+ActiveRecord::Schema.define(version: 20181008160050) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20180927165503) do
     t.integer "notified_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "micropost_id"
     t.index ["notified_by_id"], name: "index_notifications_on_notified_by_id"
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end

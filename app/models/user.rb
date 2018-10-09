@@ -36,8 +36,6 @@ class User < ApplicationRecord
 
   validates :password, presence: true, length: {minimum: 6}, allow_nil: true
 
-  # facebookでログインするときはパスを要求しない
-  validates :password, presence: false, on: :login_by_facebook
 
   def remember
     self.remember_token = User.new_token

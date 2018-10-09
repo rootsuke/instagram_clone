@@ -10,11 +10,11 @@
 
     <% case notification.notification_type %>
     <% when "favorite" %>
-      <%= "あなたの写真をお気に入り登録しました。" %>
+      <%= link_to "あなたの写真をお気に入り登録しました。", micropost_path(notification.micropost_id) %>
     <% when "follow" %>
-      <%= "あなたをフォローしました。" %>
+      <span>あなたをフォローしました。</span>
     <% when "comment" %>
-      <%= "あなたの写真にコメントしました。" %>
+      <%= link_to "あなたの写真にコメントしました。", micropost_path(notification.micropost_id) %>
     <% end %>
   </div>
 

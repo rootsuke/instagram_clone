@@ -28,7 +28,7 @@ class FavoriteTest < ActionDispatch::IntegrationTest
 
   test "should unfavorite a micropost" do
     @user.favorite(@micropost)
-    favorite = Favorite.find_by(favorite_post_id: @micropost.id)
+    favorite = @user.favorites.find_by(favorite_post_id: @micropost.id)
     assert_difference "@user.favorite_posts.count", -1 do
       delete favorite_path(favorite)
     end
@@ -47,7 +47,7 @@ class FavoriteTest < ActionDispatch::IntegrationTest
 
   test "should unfavorite a micropost with Ajax" do
     @user.favorite(@micropost)
-    favorite = Favorite.find_by(favorite_post_id: @micropost.id)
+    favorite = @user.favorites.find_by(favorite_post_id: @micropost.id)
     assert_difference "@user.favorite_posts.count", -1 do
       delete favorite_path(favorite, xhr: true)
     end

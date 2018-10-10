@@ -7,6 +7,9 @@ class Notification < ApplicationRecord
   validates :notified_by_id, presence: true
   validates :notification_type, presence: true
 
+  validates :notified_by_id, uniqueness: {scope: :micropost_id}, if: -> {notification_type == "favorite"}
+  validates :notified_by_id, uniqueness: {scope: :user_id}, if: -> {notification_type == "follow"}
+
   default_scope -> {order(created_at: :desc)}
 
 end

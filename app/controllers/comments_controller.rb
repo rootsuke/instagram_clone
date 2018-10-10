@@ -14,13 +14,12 @@ class CommentsController < ApplicationController
       redirect_to micropost_path(@comment.micropost)
     else
       if @comment.content.blank?
-        flash.now[:danger]= "コメントを入力してください"
+        flash[:danger]= "コメントを入力してください"
       elsif @comment.content.length > 140
-        flash.now[:danger]= "コメントが長すぎます"
+        flash[:danger]= "コメントが長すぎます"
       end
-      @micropost = current_user.microposts.build
-      @feed_items = current_user.feed.paginate(page: params[:page])
-      render "static_pages/home"
+      @micropost = Micropost.find(params[:post_id])
+      redirect_to micropost_path(@micropost)
     end
 
   end

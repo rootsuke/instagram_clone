@@ -5,7 +5,7 @@ class MicropostsController < ApplicationController
   def index
     @comment = current_user.comments.build
     if params[:search].blank?
-      flash[:danger] = "検索ワードを入力してください。"
+      flash[:danger] = "検索ワードを入力してください"
       redirect_to request.referrer || root_url
     else
       @microposts = Micropost.search(params[:search]).paginate(page: params[:page])
@@ -29,7 +29,7 @@ class MicropostsController < ApplicationController
     @micropost = current_user.microposts.build(micropost_params)
 
     if @micropost.save
-      flash[:success] = "Micropost created!"
+      flash[:success] = "投稿を送信しました"
       redirect_to root_url
     else
       render "microposts/new"
@@ -38,7 +38,7 @@ class MicropostsController < ApplicationController
 
   def destroy
     @micropost.destroy
-    flash[:success] = "Micropost deleted"
+    flash[:success] = "投稿を削除しました"
     redirect_to request.referrer || root_url
   end
 

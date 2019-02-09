@@ -1,0 +1,19 @@
+inherit_from:
+  - .rubocop_airbnb.yml
+
+Rails:
+  Enabled: true
+
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'bin/*'
+
+# １行に150文字まで許可
+Metrics/LineLength:
+  Max: 150
+
+# キーワード引数以外も使用可
+Airbnb/OptArgParameters:
+  Enabled: false

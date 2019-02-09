@@ -9,6 +9,7 @@ AllCops:
     - 'db/**/*'
     - 'config/**/*'
     - 'bin/*'
+    - 'test/**/*'
 
 # １行に150文字まで許可
 Metrics/LineLength:
@@ -16,4 +17,13 @@ Metrics/LineLength:
 
 # キーワード引数以外も使用可
 Airbnb/OptArgParameters:
+  Enabled: false
+
+# private宣言後のインデントを1段深くする
+Layout/IndentationConsistency:
+  Enabled: true
+  EnforcedStyle: rails
+
+# do endブロックよりも見やすいため
+Style/BlockDelimiters:
   Enabled: false

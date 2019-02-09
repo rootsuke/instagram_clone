@@ -1,5 +1,4 @@
 class RelationshipsController < ApplicationController
-
   before_action :logged_in_user
 
   def create
@@ -12,7 +11,6 @@ class RelationshipsController < ApplicationController
     end
   end
 
-
   def destroy
     @user = Relationship.find(params[:id]).followed
     current_user.unfollow(@user)
@@ -21,6 +19,4 @@ class RelationshipsController < ApplicationController
       format.js
     end
   end
-
-
 end

@@ -1,5 +1,4 @@
 class NotificationsController < ApplicationController
-
   before_action :logged_in_user
 
   def index
@@ -10,7 +9,5 @@ class NotificationsController < ApplicationController
         notification.update_attribute(:read, true)
       end
     end
-
   end
-
 end

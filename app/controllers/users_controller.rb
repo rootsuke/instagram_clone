@@ -1,11 +1,10 @@
 class UsersController < ApplicationController
-
-  before_action :logged_in_user, only: [:edit, :update, :index, :destroy,
-                                        :following, :followers, :favorites, :change_password]
+  before_action :logged_in_user, only: [:edit, :update, :index, :destroy, :following, :followers, :favorites, :change_password]
   before_action :correct_user, only: [:edit, :update, :change_password]
   before_action :correct_user_or_admin_user, only: :destroy
 
   def new
+    @user = User.new
   end
 
   def index
@@ -15,7 +14,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by(id: params[:id])
     @microposts = @user.microposts.where.not(picture: nil).paginate(page: params[:microposts_page], per_page: 6)
-    @favorites = @user.favorite_posts.paginate(page: params[:favorites_page], per_page: 20)
+    @favorites  = @user.favorite_posts.paginate(page: params[:favorites_page], per_page: 20)
     redirect_to root_url and return unless @user.activated
     @comment = current_user.comments.build
   end
@@ -23,24 +22,19 @@ class UsersController < ApplicationController
   def more_microposts
     @user = User.find_by(id: params[:id])
     @microposts = @user.microposts.where.not(picture: nil).paginate(page: params[:microposts_page], per_page: 6)
-    @favorites = @user.favorite_posts.paginate(page: params[:favorites_page], per_page: 20)
+    @favorites  = @user.favorite_posts.paginate(page: params[:favorites_page], per_page: 20)
     @comment = current_user.comments.build
   end
 
   def more_favorites
     @user = User.find_by(id: params[:id])
     @microposts = @user.microposts.where.not(picture: nil).paginate(page: params[:microposts_page], per_page: 6)
-    @favorites = @user.favorite_posts.paginate(page: params[:favorites_page], per_page: 20)
+    @favorites  = @user.favorite_posts.paginate(page: params[:favorites_page], per_page: 20)
     @comment = current_user.comments.build
-  end
-
-  def new
-    @user = User.new
   end
 
   def create
     @user = User.new(user_params)
-
     if @user.save
       @user.send_activation_email
       flash[:info] = "送信されたメールからアカウントを有効化してください。"
@@ -48,7 +42,6 @@ class UsersController < ApplicationController
     else
       render "new"
     end
-
   end
 
   def edit
@@ -57,7 +50,6 @@ class UsersController < ApplicationController
   end
 
   def update
-
     if params[:origin_form] == "change_password"
       if params[:user][:password].blank?
         flash.now[:danger] = "パスワードを入力してください"
@@ -132,6 +124,4 @@ class UsersController < ApplicationController
         redirect_to root_url
       end
     end
-
-
 end

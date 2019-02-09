@@ -1,5 +1,4 @@
 class FavoritesController < ApplicationController
-
   before_action :logged_in_user
 
   def create
@@ -7,7 +6,8 @@ class FavoritesController < ApplicationController
     current_user.favorite(@micropost)
     @user = @micropost.user
     @user.notifications.create(notified_by_id: current_user.id,
-                        micropost_id: @micropost.id, notification_type: "favorite")
+                               micropost_id: @micropost.id,
+                               notification_type: "favorite")
     respond_to do |format|
       format.html {redirect_back(fallback_location: root_path)}
       format.js
@@ -22,5 +22,4 @@ class FavoritesController < ApplicationController
       format.js
     end
   end
-
 end

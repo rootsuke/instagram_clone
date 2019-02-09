@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update, :index, :destroy, :following, :followers, :favorites, :change_password]
   before_action :correct_user, only: [:edit, :update, :change_password]
   before_action :correct_user_or_admin_user, only: :destroy
+  before_action :set_user_posts_and_user_favorites, only: [:show, :more_microposts, :more_favorites]
 
   def new
     @user = User.new
@@ -12,24 +13,15 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(id: params[:id])
-    @microposts = @user.microposts.where.not(picture: nil).paginate(page: params[:microposts_page], per_page: 6)
-    @favorites  = @user.favorite_posts.paginate(page: params[:favorites_page], per_page: 20)
     redirect_to root_url and return unless @user.activated
     @comment = current_user.comments.build
   end
 
   def more_microposts
-    @user = User.find_by(id: params[:id])
-    @microposts = @user.microposts.where.not(picture: nil).paginate(page: params[:microposts_page], per_page: 6)
-    @favorites  = @user.favorite_posts.paginate(page: params[:favorites_page], per_page: 20)
     @comment = current_user.comments.build
   end
 
   def more_favorites
-    @user = User.find_by(id: params[:id])
-    @microposts = @user.microposts.where.not(picture: nil).paginate(page: params[:microposts_page], per_page: 6)
-    @favorites  = @user.favorite_posts.paginate(page: params[:favorites_page], per_page: 20)
     @comment = current_user.comments.build
   end
 
@@ -50,13 +42,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    if params[:origin_form] == "change_password"
-      if params[:user][:password].blank?
-        flash.now[:danger] = "パスワードを入力してください"
-        @partial = "change_password_form"
-        render "edit"
-        return
-      end
+    if params[:origin_form] == "change_password" && params[:user][:password].blank?
+      flash.now[:danger] = "パスワードを入力してください"
+      @partial = "change_password_form"
+      render "edit"
+      return
     end
 
     if @user.update_attributes(user_params)
@@ -123,5 +113,11 @@ class UsersController < ApplicationController
       if !current_user.admin? && !current_user?(@user)
         redirect_to root_url
       end
+    end
+
+    def set_user_posts_and_user_favorites
+      @user = User.find_by(id: params[:id])
+      @microposts = @user.microposts.where.not(picture: nil).paginate(page: params[:microposts_page], per_page: 6)
+      @favorites  = @user.favorite_posts.paginate(page: params[:favorites_page], per_page: 20)
     end
 end

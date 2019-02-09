@@ -1,5 +1,4 @@
 class PictureUploader < CarrierWave::Uploader::Base
-
   include CarrierWave::MiniMagick
   process :square_trimming
   process resize_to_limit: [400, 400]
@@ -30,13 +29,12 @@ class PictureUploader < CarrierWave::Uploader::Base
         w = image[:width]
         h = image[:height]
         if w < h
-          cut = ((h - w)/2).round
+          cut = ((h - w) / 2).round
           image.shave("0x#{cut}")
         elsif w > h
-          cut = ((w - h)/2).round
+          cut = ((w - h) / 2).round
           image.shave("#{cut}x0")
         end
       end
     end
-
 end

@@ -10,6 +10,7 @@ AllCops:
     - 'config/**/*'
     - 'bin/*'
     - 'test/**/*'
+    - 'Gemfile'
 
 # １行に150文字まで許可
 Metrics/LineLength:
@@ -26,4 +27,7 @@ Layout/IndentationConsistency:
 
 # do endブロックよりも見やすいため
 Style/BlockDelimiters:
+  Enabled: false
+
+Airbnb/DefaultScope:
   Enabled: false

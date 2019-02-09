@@ -9,7 +9,7 @@ class FavoritesController < ApplicationController
                                micropost_id: @micropost.id,
                                notification_type: "favorite")
     respond_to do |format|
-      format.html {redirect_back(fallback_location: root_path)}
+      format.html { redirect_back(fallback_location: root_path) }
       format.js
     end
   end
@@ -18,7 +18,7 @@ class FavoritesController < ApplicationController
     @micropost = Favorite.find(params[:id]).favorite_post
     current_user.unfavorite(@micropost)
     respond_to do |format|
-      format.html {redirect_back(fallback_location: root_path)}
+      format.html { redirect_back(fallback_location: root_path) }
       format.js
     end
   end

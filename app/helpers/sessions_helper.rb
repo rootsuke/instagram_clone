@@ -1,5 +1,4 @@
 module SessionsHelper
-
   def log_in(user)
     session[:user_id] = user.id
   end
@@ -11,7 +10,6 @@ module SessionsHelper
   end
 
   def current_user
-
     if session[:user_id]
       @current_user ||= User.find_by(id: session[:user_id])
     elsif cookies.signed[:user_id]
@@ -21,7 +19,6 @@ module SessionsHelper
         @current_user = user
       end
     end
-
   end
 
   def current_user?(user)
@@ -52,5 +49,4 @@ module SessionsHelper
   def store_location
     session[:forwarding_url] = request.original_url if request.get?
   end
-
 end
